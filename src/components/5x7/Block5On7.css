@@ -1,0 +1,13 @@
+.block-5x7{
+    padding: 0;
+    margin: 5px;
+    width: 5in;
+    height: 7in;
+    background-color: #ff0088;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

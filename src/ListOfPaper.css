@@ -1,0 +1,12 @@
+.paper-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* align to the top */
+    justify-content: flex-start; /* align to the left */
+    background-color: white;
+    width: 20in;
+    height: 40in;
+    border: 2px solid #2a2a2a;
+    margin: 0 auto; /* only centering horizontally */
+    padding: 0; /* remove padding */
+}

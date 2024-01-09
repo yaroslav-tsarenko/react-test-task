@@ -1,0 +1,13 @@
+.block-9x2{
+    padding: 0;
+    margin: 5px;
+    width: 9in;
+    height: 2in;
+    background-color: blue;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
