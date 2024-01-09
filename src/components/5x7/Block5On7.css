@@ -1,6 +1,6 @@
 .block-5x7{
     padding: 0;
-    margin: 5px;
+    margin: 0;
     width: 5in;
     height: 7in;
     background-color: #ff0088;
@@ -10,4 +10,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid #fff;
 }

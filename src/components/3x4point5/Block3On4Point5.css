@@ -1,6 +1,6 @@
 .block-3x4-5{
     padding: 0;
-    margin: 5px;
+    margin: 0;
     width: 3in;
     height: 4.5in;
     background-color: #ab9400;
@@ -10,4 +10,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid #fff;
+
 }

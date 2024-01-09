@@ -1,7 +1,7 @@
 .paper-list {
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-start; /* align to the top */
+    flex-wrap: wrap;
     justify-content: flex-start; /* align to the left */
     background-color: white;
     width: 20in;
