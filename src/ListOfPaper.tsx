@@ -1,81 +1,41 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import './ListOfPaper.css';
-import Block5On7 from "./components/5x7/Block5on7";
-import Block3On4Point5 from "./components/3x4point5/Block3on4point5";
-import Block9On2 from "../src/components/9x2/Block9on2";
+import Isotope from 'isotope-layout';
 
-interface Block {
-        width: number;
-        height: number;
-        component: React.FC;
-}
+const ListOfPaper = () => {
+    const isoRef = useRef<HTMLDivElement>(null);
 
-interface Row {
-        width: number;
-        height: number;
-        blocks: Block[];
-}
-
-interface Bin {
-        width: number;
-        height: number;
-        blocks: Block[];
-}
-
-function sortBlocks(blocks: Block[]): Block[] {
-        return blocks.sort((a, b) => (b.width * b.height) - (a.width * a.height));
-}
-
-
-
-function packBlocks(blocks: Block[], paperWidth: number, paperHeight: number): Bin[] {
-        let sortedBlocks = sortBlocks(blocks);
-        let packedBins: Bin[] = [];
-
-        for (let block of sortedBlocks) {
-                let bestFitIndex = -1;
-                let minWaste = Infinity;
-
-                for (let i = 0; i < packedBins.length; i++) {
-                        let waste = (packedBins[i].width - block.width) * (packedBins[i].height - block.height);
-
-                        if (waste >= 0 && waste < minWaste) {
-                                bestFitIndex = i;
-                                minWaste = waste;
-                        }
+    useEffect(() => {
+        if (isoRef.current) {
+            // Initialize Isotope
+            new Isotope(isoRef.current, {
+                itemSelector: '.grid-item',
+                percentPosition: true,
+                masonry: {
+                    columnWidth: '.grid-sizer'
                 }
-
-                if (bestFitIndex !== -1) {
-                        packedBins[bestFitIndex].blocks.push(block);
-                        packedBins[bestFitIndex].width -= block.width;
-                        packedBins[bestFitIndex].height = Math.max(packedBins[bestFitIndex].height, block.height);
-                } else {
-                        let newBin: Bin = { width: paperWidth, height: paperHeight, blocks: [block] };
-                        packedBins.push(newBin);
-                }
+            });
         }
+    }, []);
 
-        return packedBins;
-}
+    // Function to generate a container
+    const generateContainer = (className: string, times: number) => {
+        let containers = [];
+        for (let i = 0; i < times; i++) {
+            containers.push(<div className={`grid-item ${className}`}><p>{className.split('--')[1]}</p></div>);
+        }
+        return containers;
+    }
 
-const ListOfPaper: React.FC = () => {
-        const blocks: Block[] = [
-                ...Array(5).fill({ width: 9, height: 2, component: Block9On2 }),
-                ...Array(5).fill({ width: 5, height: 7, component: Block5On7 }),
-                ...Array(7).fill({ width: 3, height: 4.5, component: Block3On4Point5 })
-        ];
-
-        const packedBins = packBlocks(blocks, 20, 40);
-
-        return (
+    return (
+        <div className="grid-paper-list">
             <div className="paper-list">
-                    {packedBins.map((bin, i) =>
-                        bin.blocks.map((block, j) =>
-                            <block.component key={`${i}-${j}`} />
-                        )
-                    )}
+                {generateContainer('grid-item--3x4-5', 7)}
+                {generateContainer('grid-item--5x7', 5)}
+                {generateContainer('grid-item--9x2', 5)}
             </div>
-        );
+        </div>
+    );
 };
 
 export default ListOfPaper;
