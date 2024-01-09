@@ -1,6 +1,6 @@
 .block-9x2{
     padding: 0;
-    margin: 5px;
+    margin: 0;
     width: 9in;
     height: 2in;
     background-color: blue;
@@ -10,4 +10,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid #fff;
 }

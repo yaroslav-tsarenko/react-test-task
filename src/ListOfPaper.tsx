@@ -16,20 +16,28 @@ interface Row {
         blocks: Block[];
 }
 
+interface Bin {
+        width: number;
+        height: number;
+        blocks: Block[];
+}
+
 function sortBlocks(blocks: Block[]): Block[] {
         return blocks.sort((a, b) => (b.width * b.height) - (a.width * a.height));
 }
 
-function packBlocks(blocks: Block[], paperWidth: number, paperHeight: number): Row[] {
+
+
+function packBlocks(blocks: Block[], paperWidth: number, paperHeight: number): Bin[] {
         let sortedBlocks = sortBlocks(blocks);
-        let packedBlocks: Row[] = [];
+        let packedBins: Bin[] = [];
 
         for (let block of sortedBlocks) {
                 let bestFitIndex = -1;
-                let minWaste = paperWidth;
+                let minWaste = Infinity;
 
-                for (let i = 0; i < packedBlocks.length; i++) {
-                        let waste = packedBlocks[i].width - block.width;
+                for (let i = 0; i < packedBins.length; i++) {
+                        let waste = (packedBins[i].width - block.width) * (packedBins[i].height - block.height);
 
                         if (waste >= 0 && waste < minWaste) {
                                 bestFitIndex = i;
@@ -38,15 +46,16 @@ function packBlocks(blocks: Block[], paperWidth: number, paperHeight: number): R
                 }
 
                 if (bestFitIndex !== -1) {
-                        packedBlocks[bestFitIndex].blocks.push(block);
-                        packedBlocks[bestFitIndex].width -= block.width;
+                        packedBins[bestFitIndex].blocks.push(block);
+                        packedBins[bestFitIndex].width -= block.width;
+                        packedBins[bestFitIndex].height = Math.max(packedBins[bestFitIndex].height, block.height);
                 } else {
-                        let newRow: Row = { width: paperWidth - block.width, height: block.height, blocks: [block] };
-                        packedBlocks.push(newRow);
+                        let newBin: Bin = { width: paperWidth, height: paperHeight, blocks: [block] };
+                        packedBins.push(newBin);
                 }
         }
 
-        return packedBlocks;
+        return packedBins;
 }
 
 const ListOfPaper: React.FC = () => {
@@ -56,12 +65,12 @@ const ListOfPaper: React.FC = () => {
                 ...Array(7).fill({ width: 3, height: 4.5, component: Block3On4Point5 })
         ];
 
-        const packedBlocks = packBlocks(blocks, 20, 40);
+        const packedBins = packBlocks(blocks, 20, 40);
 
         return (
             <div className="paper-list">
-                    {packedBlocks.map((row, i) =>
-                        row.blocks.map((block, j) =>
+                    {packedBins.map((bin, i) =>
+                        bin.blocks.map((block, j) =>
                             <block.component key={`${i}-${j}`} />
                         )
                     )}
