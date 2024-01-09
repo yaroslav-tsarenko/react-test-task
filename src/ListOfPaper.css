@@ -1,12 +1,100 @@
-.paper-list {
-    display: flex;
-    align-items: flex-start; /* align to the top */
-    flex-wrap: wrap;
-    justify-content: flex-start; /* align to the left */
-    background-color: white;
-    width: 20in;
-    height: 40in;
-    border: 2px solid #2a2a2a;
-    margin: 0 auto; /* only centering horizontally */
-    padding: 0; /* remove padding */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* force scrollbar, prevents initial gap */
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.grid-paper-list {
+    margin: 0 auto;
+    width: 1920px; /* 20 inches */
+    height: 3840px; /* 40 inches */
+    background: #DDD;
+    border: 1px solid #333;
+}
+
+/* clear fix */
+.grid-paper-list:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.paper-list{
+    margin: 0 auto;
+    width: 1920px; /* 20 inches */
+    height: 3840px; /* 40 inches */
+    background: #DDD;
+    border: 1px solid #333;
+
+}
+
+/* ---- .element-item ---- */
+
+/* 5 columns, percentage width */
+.grid-item,
+.grid-sizer {
+
+    width: 20%;
+    background-color: #1d00ad;
+}
+
+.grid-item {
+    float: left;
+    height: 100px;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+
+}
+
+.grid-item--width2 {
+    width: 40%;
+}
+
+.grid-item--height2 {
+    height: 200px;
+    background-color: #42404b;
+}
+
+.grid-item--9x2 {
+    width: 864px; /* 9 inches */
+    height: 192px; /* 2 inches */
+    float: left;
+    background: #77bd0a;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.grid-item--9x2, .grid-item--5x7, .grid-item--3x4-5 p {
+    text-align: center;
+    align-content: center;
+    margin: 0 auto;
+    font-size: 2.5rem;
+
+}
+
+.grid-item--5x7 {
+    width: 480px; /* 5 inches */
+    height: 672px; /* 7 inches */
+    float: left;
+    background: #a11a56;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+}
+
+.grid-item--3x4-5 {
+    width: 288px; /* 3 inches */
+    height: 432px; /* 4.5 inches */
+    float: left;
+    background: #524fc5;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
 }
